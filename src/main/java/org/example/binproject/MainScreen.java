@@ -4,8 +4,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.binproject.sql.SQLManager;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 public class MainScreen extends Application {
     @Override
@@ -15,9 +17,11 @@ public class MainScreen extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
+
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         launch();
+        //test connection Connection connection = SQLManager.getConnection();
     }
 }
