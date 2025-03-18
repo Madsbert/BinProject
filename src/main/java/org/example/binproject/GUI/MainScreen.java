@@ -1,10 +1,10 @@
-package org.example.binproject;
+package org.example.binproject.GUI;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.binproject.sql.SQLManager;
+import org.example.binproject.Foundation.SQLManager;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -22,6 +22,7 @@ public class MainScreen extends Application {
 
     public static void main(String[] args) throws Exception {
         launch();
-        //test connection Connection connection = SQLManager.getConnection();
+        //test connection
+        Connection connection = SQLManager.getConnection();
     }
 }
