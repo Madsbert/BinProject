@@ -10,6 +10,7 @@ module org.example.binproject {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.sql;
 
     opens org.example.binproject to javafx.fxml;
     exports org.example.binproject;
