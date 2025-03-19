@@ -14,15 +14,15 @@ public class MeasurementsDatabase {
         try {
             Connection conn = SQLManager.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1,measurement.getTimeStamp());
-            ps.setInt(2,measurement.getBinLevel());
-            ps.setString(3,measurement.getLastEmptyed());
-            ps.setBoolean(4,measurement.getContainsMeat());
-            ps.setBoolean(5,measurement.getAppendDangerousTrash());
-            ps.setInt(6,measurement.getBinID());
+            ps.setString(1, measurement.getTimeStamp());
+            ps.setInt(2, measurement.getBinLevel());
+            ps.setString(3, measurement.getLastEmptyed());
+            ps.setBoolean(4, measurement.getContainsMeat());
+            ps.setBoolean(5, measurement.getAppendDangerousTrash());
+            ps.setInt(6, measurement.getBinID());
             ps.executeUpdate();
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
             System.out.println("Failed to connect to database in CreateMeasurement() or Bin ID didn't exist");
         }
