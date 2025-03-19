@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MeasurementsDatabase {
 
@@ -52,12 +54,40 @@ public class MeasurementsDatabase {
                 int binID = resultSet.getInt("binID");
 
                 return new Measurements(timeStamp, binLevel, lastEmptyed, containsMeat, appendDangerousTrash, binID);
-
             }
         } catch (Exception e) {
-            System.err.println("Database error: " + e.getMessage());
+            System.err.println("Database error: " + e.getMessage() + "program failed in read()");
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
+    public List<Measurements> readAll() throws Exception
+    {
+        String sql = "SELECT * FROM dbo.tblMeasurements";
+        List<Measurements> measurements = new ArrayList<>();
+        try (Connection con = SQLManager.getConnection();
+             PreparedStatement statement = con.prepareStatement(sql))
+        {
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next())
+            {
+                String timeStamp = resultSet.getString("timeStamp");
+                int binLevel = resultSet.getInt("binlevel");
+                String lastEmptyed = resultSet.getString("lastEmptyed");
+                boolean containsMeat = resultSet.getBoolean("containsMeat");
+                boolean appendDangerousTrash = resultSet.getBoolean("appendDangerousTrash");
+                int binID = resultSet.getInt("binID");
+                Measurements measurement = new Measurements(timeStamp, binLevel, lastEmptyed, containsMeat, appendDangerousTrash, binID);
+                measurements.add(measurement);
+            }
+        }
+        return measurements;
+
     }
 }
