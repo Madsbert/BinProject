@@ -7,6 +7,9 @@ public class Measurements {
     private int binLevel;
     private String lastEmptyed;
     private Boolean containsMeat;
+    private Boolean appendDangerousTrash;
+    private int binID;
+
 
 
     public Measurements(String timeStamp, int binLevel, String lastEmptyed, boolean containsMeat, boolean appendDangerousTrash, int binID) {
@@ -71,9 +74,16 @@ public class Measurements {
         this.binID = binID;
     }
 
-    private Boolean appendDangerousTrash;
-    private int binID;
-
-
+    @Override
+    public String toString() {
+        return "Measurements{" +
+                "timestamp='" + timeStamp + '\'' +
+                ", binLevel=" + binLevel +
+                ", lastEmptied='" + lastEmptyed + '\'' +
+                ", containsMeat=" + containsMeat +
+                ", appendDangerousTrash=" + appendDangerousTrash +
+                ", binID=" + binID +
+                '}';
+    }
 
 }
