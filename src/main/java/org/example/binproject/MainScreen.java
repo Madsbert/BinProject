@@ -11,6 +11,8 @@ import org.example.binproject.Services.CsvConverter;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainScreen extends Application {
     @Override
@@ -24,18 +26,25 @@ public class MainScreen extends Application {
     }
 
     public static void main(String[] args) throws Exception {
-        launch();
+        //launch();
 
         //test connection Connection connection = SQLManager.getConnection();
-        CsvConverter csvConverter = new CsvConverter();
+        //CsvConverter csvConverter = new CsvConverter();
 
         // Test CSV Converter (right now only path to arraylist conversion)
-        csvConverter.importCsv("src/main/resources/org/example/binproject/test.csv");
-        System.out.println(csvConverter.getRecords());
+        //csvConverter.importCsv("src/main/resources/org/example/binproject/test.csv");
+
         //Measurements measurement = new Measurements("19-03-2025 10:55:00", 50, "10-03-2025 10:00:00", false, false, 1);
         //MeasurementsDatabase.createMeasurement(measurement);
 
         //System.out.println(MeasurementsDatabase.read(1));
+        MeasurementsDatabase db = new MeasurementsDatabase();
+        List<Measurements> measurementsList = db.readAll();
+        for (Measurements measurements : measurementsList) {
+            System.out.println(measurements);
+        }
+
+
 
     }
 }

@@ -67,7 +67,7 @@ public class MeasurementsDatabase {
      * @return
      * @throws Exception
      */
-    public List<Measurements> readAll() throws Exception
+    public static List<Measurements> readAll() throws Exception
     {
         String sql = "SELECT * FROM dbo.tblMeasurements";
         List<Measurements> measurements = new ArrayList<>();
