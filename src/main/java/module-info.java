@@ -14,4 +14,6 @@ module org.example.binproject {
 
     opens org.example.binproject to javafx.fxml;
     exports org.example.binproject;
+    exports org.example.binproject.Controllers;
+    opens org.example.binproject.Controllers to javafx.fxml;
 }

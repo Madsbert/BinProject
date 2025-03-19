@@ -1,4 +1,4 @@
-package org.example.binproject.sql;
+package org.example.binproject.Foundation;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
