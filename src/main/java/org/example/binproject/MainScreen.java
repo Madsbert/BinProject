@@ -21,7 +21,7 @@ public class MainScreen extends Application {
     }
 
     public static void main(String[] args) throws Exception {
-        //launch();
+        launch();
 
         //test connection Connection connection = SQLManager.getConnection();
         CsvConverter csvConverter = new CsvConverter();
