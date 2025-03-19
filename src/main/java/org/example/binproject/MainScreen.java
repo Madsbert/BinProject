@@ -4,10 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.binproject.sql.SQLManager;
 
 import java.io.IOException;
-import java.sql.Connection;
 
 public class MainScreen extends Application {
     @Override
