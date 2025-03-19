@@ -4,10 +4,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.binproject.sql.SQLManager;
+import org.example.binproject.util.CsvConverter;
 
 import java.io.IOException;
-import java.sql.Connection;
 
 public class MainScreen extends Application {
     @Override
@@ -21,7 +20,14 @@ public class MainScreen extends Application {
     }
 
     public static void main(String[] args) throws Exception {
-        launch();
+        //launch();
+
         //test connection Connection connection = SQLManager.getConnection();
+        CsvConverter csvConverter = new CsvConverter();
+
+        // Test CSV Converter (right now only path to arraylist conversion)
+        csvConverter.importCsv("src/main/resources/org/example/binproject/test.csv");
+        System.out.println(csvConverter.getRecords());
+
     }
 }
