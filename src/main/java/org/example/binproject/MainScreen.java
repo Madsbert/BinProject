@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.binproject.Domain.Measurements;
+import org.example.binproject.Persistance.MeasurementsDatabase;
 import org.example.binproject.Services.CsvConverter;
 
 
@@ -29,6 +31,8 @@ public class MainScreen extends Application {
         // Test CSV Converter (right now only path to arraylist conversion)
         csvConverter.importCsv("src/main/resources/org/example/binproject/test.csv");
         System.out.println(csvConverter.getRecords());
+        Measurements measurement = new Measurements("19-03-2025 10:55:00", 50, "10-03-2025 10:00:00", false, false, 1);
+        MeasurementsDatabase.createMeasurement(measurement);
 
     }
 }

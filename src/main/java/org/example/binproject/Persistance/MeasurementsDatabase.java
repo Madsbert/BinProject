@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 public class MeasurementsDatabase {
 
     public static void createMeasurement(Measurements measurement) {
-        String sql = "INSERT INTO dbo.tblMeasurement(timestamp, binLevel, lastEmptyed, containsMeat, appendDangerousTrash,binID) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO dbo.tblMeasurements(timestamp, binLevel, lastEmptyed, containsMeat, appendDangerousTrash,binID) VALUES (?,?,?,?,?,?)";
         try {
             Connection conn = SQLManager.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -23,7 +23,7 @@ public class MeasurementsDatabase {
 
         }catch (Exception e) {
             System.out.println(e);
-            System.out.println("Failed to connect to database in CreateMeasurement()");
+            System.out.println("Failed to connect to database in CreateMeasurement() or Bin ID didn't exist");
         }
     }
 }
