@@ -9,7 +9,7 @@ import java.util.List;
  * Interface with the methods that we use - create, read and real all.
  */
 
-public interface MeasurementInterface
+public interface MeasurementDBInterface
 {
     void createMeasurement(Measurements measurement); //Create measurement
 

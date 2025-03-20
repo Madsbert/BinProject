@@ -13,7 +13,7 @@ import java.util.List;
  * a class to manage the database to read and create from the database
  */
 
-public class MeasurementsDatabase implements MeasurementInterface {
+public class MeasurementsDatabase implements MeasurementDBInterface {
 
     /**
      * a method to create a measurement in the database

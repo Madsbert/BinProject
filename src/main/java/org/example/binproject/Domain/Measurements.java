@@ -1,5 +1,8 @@
 package org.example.binproject.Domain;
 
+import org.example.binproject.Persistance.MeasurementDBInterface;
+import org.example.binproject.Persistance.MeasurementsDatabase;
+
 /**
  * Class to describe a measurement
  */
@@ -99,6 +102,19 @@ public class Measurements {
                 ", appendDangerousTrash=" + appendDangerousTrash +
                 ", binID=" + binID +
                 '}';
+    }
+
+    public String getColor (){
+        String color = "";
+
+        if (getBinLevel() >= 90) {
+            color = "Red";
+        } else if (getBinLevel() >= 33 ||getContainsMeat()) {
+            color = "Yellow";
+        } else {
+            color = "Green";
+        }
+        return color;
     }
 
 

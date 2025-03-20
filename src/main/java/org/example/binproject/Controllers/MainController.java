@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import org.example.binproject.Domain.Measurements;
-import org.example.binproject.Persistance.MeasurementInterface;
+import org.example.binproject.Persistance.MeasurementDBInterface;
 import org.example.binproject.Persistance.MeasurementsDatabase;
 import org.example.binproject.Services.Calculations;
 import org.example.binproject.Services.CalculationsInterface;
@@ -112,8 +112,8 @@ public class MainController {
      * @throws Exception
      */
     public void showDataForTimePeriod(LocalDate from, LocalDate to) throws Exception {
-        MeasurementInterface measurementInterface = new MeasurementsDatabase();
-        List<Measurements> list = measurementInterface.readAll();
+        MeasurementDBInterface measurementDBInterface = new MeasurementsDatabase();
+        List<Measurements> list = measurementDBInterface.readAll();
         List<Measurements> resultList = new ArrayList<>();
 
         for (Measurements measurement : list) {
