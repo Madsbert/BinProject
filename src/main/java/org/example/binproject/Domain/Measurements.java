@@ -1,5 +1,8 @@
 package org.example.binproject.Domain;
 
+/**
+ * Class to describe a measurement
+ */
 public class Measurements {
 
     private int measurementID;
@@ -11,7 +14,15 @@ public class Measurements {
     private int binID;
 
 
-
+    /**
+     * A Measurement Obejct
+     * @param timeStamp
+     * @param binLevel
+     * @param lastEmptyed
+     * @param containsMeat
+     * @param appendDangerousTrash
+     * @param binID
+     */
     public Measurements(String timeStamp, int binLevel, String lastEmptyed, boolean containsMeat, boolean appendDangerousTrash, int binID) {
         this.timeStamp = timeStamp;
         this.binLevel = binLevel;
@@ -74,6 +85,10 @@ public class Measurements {
         this.binID = binID;
     }
 
+    /**
+     * a method to be able to read a measurement
+     * @return
+     */
     @Override
     public String toString() {
         return "Measurements{" +
@@ -85,5 +100,6 @@ public class Measurements {
                 ", binID=" + binID +
                 '}';
     }
+
 
 }
