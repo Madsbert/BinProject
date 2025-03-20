@@ -9,9 +9,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MeasurementsDatabase {
-
-    public static void createMeasurement(Measurements measurement) {
+public class MeasurementsDatabase implements MeasurementInterface
+{
+    @Override
+    public void createMeasurement(Measurements measurement) {
         String sql = "INSERT INTO dbo.tblMeasurements(timestamp, binLevel, lastEmptyed, containsMeat, appendDangerousTrash,binID) VALUES (?,?,?,?,?,?)";
         try {
             Connection conn = SQLManager.getConnection();
@@ -36,8 +37,8 @@ public class MeasurementsDatabase {
  * @param
  * @return the measurement with the matching ID if found, or null if no such measurement exist
  */
-
-    public static Measurements read(int measurementId) throws IOException {
+    @Override
+    public Measurements read(int measurementId) throws IOException {
         String sql = "SELECT * FROM dbo.tblMeasurements WHERE measurementID = ?";
         try (Connection con = SQLManager.getConnection();
              PreparedStatement statement = con.prepareStatement(sql)) {
@@ -67,7 +68,8 @@ public class MeasurementsDatabase {
      * @return
      * @throws Exception
      */
-    public static List<Measurements> readAll() throws Exception
+    @Override
+    public List<Measurements> readAll() throws Exception
     {
         String sql = "SELECT * FROM dbo.tblMeasurements";
         List<Measurements> measurements = new ArrayList<>();
