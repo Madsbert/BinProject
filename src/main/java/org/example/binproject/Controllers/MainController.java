@@ -12,10 +12,10 @@ import org.example.binproject.Domain.Measurements;
 import org.example.binproject.Persistance.MeasurementInterface;
 import org.example.binproject.Persistance.MeasurementsDatabase;
 import org.example.binproject.Services.Calculations;
+import org.example.binproject.Services.CalculationsInterface;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,9 @@ public class MainController {
     private ObservableList<String> timePeriod = FXCollections.observableArrayList();
     private ObservableList<String> viewedData = FXCollections.observableArrayList();
 
-
+    /**
+     * method to start the UI with some data
+     */
     public void initialize() {
         viewedData.addAll("Status of Bins", "Driven Kilometer", "Saved Kilometer");
         selectViewedData.setItems(viewedData);
@@ -68,7 +70,10 @@ public class MainController {
 
     }
 
-    //Actions
+    /**
+     * a method to choose for the user if they want to see a day, week, month or year
+     * @throws Exception
+     */
     public void onTimePeriodChange() throws Exception {
         LocalDate selectedDate = selectDate.getValue();
         if (selectedDate == null) {
@@ -100,7 +105,12 @@ public class MainController {
         showDataForTimePeriod(start, end);
     }
 
-
+    /**
+     * a method to input data in i barchart and calculate the timeperiod
+     * @param from a date from when
+     * @param to a date to when
+     * @throws Exception
+     */
     public void showDataForTimePeriod(LocalDate from, LocalDate to) throws Exception {
         MeasurementInterface measurementInterface = new MeasurementsDatabase();
         List<Measurements> list = measurementInterface.readAll();
@@ -112,7 +122,7 @@ public class MainController {
                 resultList.add(measurement);
             }
         }
-        long countDays = ChronoUnit.DAYS.between(from, to) + 1;  // Antal dage
+        long countDays = ChronoUnit.DAYS.between(from, to) + 1;  // Number of days
         List<XYChart.Series<String, Number>> seriesList = new ArrayList<>();
 
         for (int i = 0; i < countDays; i++) {
@@ -127,7 +137,8 @@ public class MainController {
                     measurementsDay.add(m);
                 }
             }
-            List<Integer> resultDays = Calculations.calculateStatistics(measurementsDay);
+            CalculationsInterface calc = new Calculations();
+            List<Integer> resultDays = calc.calculateStatistics(measurementsDay);
 
             series.getData().add(new XYChart.Data<>("Red", resultDays.get(0)));
             series.getData().add(new XYChart.Data<>("Yellow", resultDays.get(1)));
