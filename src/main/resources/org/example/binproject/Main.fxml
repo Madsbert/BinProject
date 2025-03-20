@@ -4,26 +4,45 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="757.0" prefWidth="1297.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.binproject.Controllers.MainController">
-    <VBox layoutX="93.0" layoutY="44.0" prefHeight="200.0" prefWidth="100.0" />
-    <StackedBarChart fx:id="barChart" layoutX="-1.0" layoutY="-1.0" prefHeight="676.0" prefWidth="1287.0">
-        <xAxis>
-            <CategoryAxis fx:id="axisTimeline" prefHeight="2.0" prefWidth="1251.0" side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-            <NumberAxis fx:id="axisValue" side="LEFT" />
-        </yAxis>
-    </StackedBarChart>
-    <HBox layoutY="672.0" prefHeight="102.0" prefWidth="1302.0">
-        <VBox prefHeight="105.0" prefWidth="190.0">
-            <ChoiceBox fx:id="selectTimePeriod" prefHeight="26.0" prefWidth="193.0" />
-            <Separator prefWidth="200.0" />
-            <DatePicker fx:id="selectDate" prefHeight="26.0" prefWidth="193.0" />
-        </VBox>
-        <VBox prefHeight="63.0" prefWidth="942.0" />
-        <VBox layoutX="137.0" layoutY="10.0" prefHeight="59.0" prefWidth="156.0">
-            <ChoiceBox fx:id="selectViewedData" prefHeight="26.0" prefWidth="176.0" />
-            <Button fx:id="btnImport" mnemonicParsing="false" prefHeight="26.0" prefWidth="152.0" text="Import" />
-        </VBox>
-    </HBox>
-</Pane>
+<BorderPane stylesheets="@UIStyleSheet.css" styleClass="root"
+            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.binproject.Controllers.MainController">
+
+    <top>
+        <VBox styleClass="TitleBar"><Label styleClass="Title" text="Waste Statistics – Overview &#38; Optimization"/></VBox>
+    </top>
+    <!-- Center: Stacked Bar Chart -->
+    <center>
+        <StackedBarChart fx:id="barChart" styleClass="chart">
+            <xAxis>
+                <CategoryAxis fx:id="axisTimeline" styleClass="x-axis" />
+            </xAxis>
+            <yAxis>
+                <NumberAxis fx:id="axisValue" styleClass="y-axis" />
+            </yAxis>
+        </StackedBarChart>
+    </center>
+
+    <!-- Bottom: Controls -->
+    <bottom>
+        <HBox styleClass="hbox">
+            <!-- Left: Time Period Selection -->
+            <VBox styleClass="vbox">
+                <ChoiceBox fx:id="selectTimePeriod" styleClass="choiceBox" />
+                <Separator styleClass="separator" />
+                <DatePicker fx:id="selectDate" styleClass="datePicker" />
+            </VBox>
+
+            <!-- Spacer -->
+            <Region HBox.hgrow="ALWAYS" />
+
+            <!-- Right: Data Selection and Import -->
+            <VBox styleClass="vbox">
+                <ChoiceBox fx:id="selectViewedData" styleClass="choiceBox" />
+                <Separator styleClass="separator" visible="false" />
+                <Button fx:id="btnImport" text="Import" styleClass="button" />
+            </VBox>
+        </HBox>
+    </bottom>
+
+</BorderPane>

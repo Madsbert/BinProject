@@ -1,0 +1,68 @@
+.root{
+    -fx-border-color: transparent;
+
+}
+/*----- Title bar -----*/
+.TitleBar {
+    -fx-alignment: CENTER;
+}
+.Title{
+        -fx-font-size: 30;
+        -fx-font-weight: bold;
+        -fx-alignment: CENTER;
+        -fx-font-family: Verdana;
+        -fx-text-alignment: CENTER;
+
+}
+
+
+/*----- Chart -----*/
+.chart {
+
+}
+/*Set font sizes for X and Y axis */
+.x-axis {
+-fx-tick-label-font: 14px "Arial";
+}
+.y-axis {
+-fx-tick-label-font: 10px "Arial";
+}
+
+
+
+
+
+
+
+/* ----- CONTROLS (ChoiceBox, DatePicker, Button) ----- */
+.choiceBox, .datePicker {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+}
+
+.button {
+    -fx-background-color: #007bff; /* Bootstrap blue */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* ----- SEPARATOR ----- */
+.separator {
+    -fx-background-color: #cccccc;
+
+}
+
+/* ----- HBox / VBox Layout Adjustments ----- */
+.hbox, .vbox {
+    -fx-spacing: 10px;
+    -fx-padding: 10px;
+}

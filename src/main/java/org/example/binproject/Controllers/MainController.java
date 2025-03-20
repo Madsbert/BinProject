@@ -60,6 +60,7 @@ public class MainController {
 
     }
 
+
     //Actions
     public void onTimePeriodChange() throws Exception {
         int selected = selectTimePeriod.getSelectionModel().getSelectedIndex();
@@ -105,6 +106,7 @@ public class MainController {
             LocalDate currentDate = from.plusDays(i);
             XYChart.Series<String, Number> series = new XYChart.Series<>();
             series.setName(currentDate.toString());
+
 
             List<Measurements> measurementsDay = new ArrayList<>();
             for (Measurements m : resultList) {
