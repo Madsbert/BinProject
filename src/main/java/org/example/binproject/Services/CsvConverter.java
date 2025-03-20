@@ -1,6 +1,7 @@
 package org.example.binproject.Services;
 
 import org.example.binproject.Domain.Measurements;
+import org.example.binproject.Persistance.MeasurementInterface;
 import org.example.binproject.Persistance.MeasurementsDatabase;
 
 import java.io.*;
@@ -39,7 +40,8 @@ public class CsvConverter {
                 );
 
                 //insert into database
-                MeasurementsDatabase.createMeasurement(measurement);
+                MeasurementInterface measurementInterface = new MeasurementsDatabase();
+                measurementInterface.createMeasurement(measurement);
             }
             System.out.println("CSV data imported");
         } catch (IOException e) {
