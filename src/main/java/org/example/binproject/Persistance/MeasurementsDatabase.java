@@ -13,15 +13,12 @@ import java.util.List;
  * a class to manage the database to read and create from the database
  */
 
-public class MeasurementsDatabase {
+public class MeasurementsDatabase implements MeasurementInterface {
 
     /**
      * a method to create a measurement in the database
      * @param measurement
      */
-    public static void createMeasurement(Measurements measurement) {
-public class MeasurementsDatabase implements MeasurementInterface
-{
     @Override
     public void createMeasurement(Measurements measurement) {
         String sql = "INSERT INTO dbo.tblMeasurements(timestamp, binLevel, lastEmptyed, containsMeat, appendDangerousTrash,binID) VALUES (?,?,?,?,?,?)";
