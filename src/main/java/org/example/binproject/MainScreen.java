@@ -18,7 +18,7 @@ public class MainScreen extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainScreen.class.getResource("Main.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load(), 1297.0, 757.0);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
@@ -33,18 +33,6 @@ public class MainScreen extends Application {
 
         // Test CSV Converter (right now only path to arraylist conversion)
         //csvConverter.importCsv("src/main/resources/org/example/binproject/test.csv");
-
-        //Measurements measurement = new Measurements("19-03-2025 10:55:00", 50, "10-03-2025 10:00:00", false, false, 1);
-        //MeasurementsDatabase.createMeasurement(measurement);
-
-        //System.out.println(MeasurementsDatabase.read(1));
-        MeasurementsDatabase db = new MeasurementsDatabase();
-        List<Measurements> measurementsList = db.readAll();
-        for (Measurements measurements : measurementsList) {
-            System.out.println(measurements);
-        }
-
-
 
     }
 }

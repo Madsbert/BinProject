@@ -1,6 +1,7 @@
 package org.example.binproject.Controllers;
 
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import org.example.binproject.Domain.Measurements;
+import org.example.binproject.Persistance.MeasurementInterface;
 import org.example.binproject.Persistance.MeasurementsDatabase;
 
 import java.time.LocalDate;
@@ -20,35 +22,34 @@ import java.util.List;
 public class MainController {
 
     @FXML
-    protected static CategoryAxis axisTimeline;
+    private CategoryAxis axisTimeline;
     @FXML
-    protected static NumberAxis axisValue;
+    private NumberAxis axisValue;
     @FXML
-    protected static ChoiceBox selectTimePeriod;
+    private ChoiceBox selectTimePeriod;
     @FXML
-    protected BarChart barChart;
+    private BarChart barChart;
     @FXML
-    protected static DatePicker selectDate;
+    private DatePicker selectDate;
     @FXML
-    protected static ChoiceBox selectViewedData;
+    private ChoiceBox selectViewedData;
     @FXML
-    protected static Button btnImport;
+    private Button btnImport;
 
-    protected static ObservableList<String> timePeriod;
-    protected static LocalDate selectedDate = LocalDate.now();
-    protected static ObservableList<String> viewedData;
+    private ObservableList<String> timePeriod = FXCollections.observableArrayList();
+    private LocalDate selectedDate = LocalDate.now();
+    private ObservableList<String> viewedData = FXCollections.observableArrayList();
 
 
-    public static void initialize() {
-        System.out.println("test");
-        viewedData.add("Status of Bins");
-        viewedData.add("Driven Kilometer");
-        viewedData.add("Saved Kilometer");
+    public void initialize() {
+        viewedData.addAll("Status of Bins", "Driven Kilometer", "Saved Kilometer");
         selectViewedData.setItems(viewedData);
-        timePeriod.add("Day");
-        timePeriod.add("Week");
-        timePeriod.add("Month");
-        timePeriod.add("Year");
+        selectViewedData.setValue("Select Information ");
+
+        timePeriod.addAll("Day", "Week", "Month", "Year");
+        selectTimePeriod.setItems(timePeriod);
+        selectTimePeriod.setValue("Select Time Period");
+
         selectTimePeriod.setOnAction(e -> {
             try {
                 onTimePeriodChange();
@@ -56,10 +57,11 @@ public class MainController {
                 throw new RuntimeException(ex);
             }
         });
+
     }
 
     //Actions
-    public static void onTimePeriodChange() throws Exception {
+    public void onTimePeriodChange() throws Exception {
         int selected = selectTimePeriod.getSelectionModel().getSelectedIndex();
         switch (selected) {
             case 0:
@@ -85,46 +87,23 @@ public class MainController {
                         LocalDate endOfYear = LocalDate.of(yearMonth, 12, 31);
                         showDataForTimePeriod(startOfYear, endOfYear);
 
-
                         break;
-
-
-
         }
     }
 
-
-
-
-
-
     //
-    public static void showDataForTimePeriod(LocalDate from, LocalDate to) throws Exception {
+    public void showDataForTimePeriod(LocalDate from, LocalDate to) throws Exception {
         LocalDateTime dtFrom = from.atStartOfDay();
         LocalDateTime dtTo = to.atStartOfDay();
 
-        List<Measurements> list = MeasurementsDatabase.readAll();
+        MeasurementInterface measurementInterface = new MeasurementsDatabase();
+        List<Measurements> list = measurementInterface.readAll();
         List<Measurements> resultList = new ArrayList<Measurements>();
         for(Measurements measurement : list) {
             if (LocalDateTime.parse(measurement.getTimeStamp()).isAfter(dtFrom) && LocalDateTime.parse(measurement.getTimeStamp()).isBefore(dtTo)) {
                 resultList.add(measurement);
             }
         }
-
-
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
 
 }
