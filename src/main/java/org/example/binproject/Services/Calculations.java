@@ -19,9 +19,9 @@ public class Calculations {
         int greenCount = 0;
         List<Integer> result = new ArrayList<Integer>();
         for (Measurements m : measurements) {
-            if (m.getBinLevel() > 90) {
+            if (m.getBinLevel() >= 90) {
                 redCount++;
-            } else if (m.getBinLevel() > 33 ||m.getContainsMeat()) {
+            } else if (m.getBinLevel() >= 33 ||m.getContainsMeat()) {
                 yellowCount++;
             } else {
                 greenCount++;

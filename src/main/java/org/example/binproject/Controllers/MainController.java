@@ -15,6 +15,7 @@ import org.example.binproject.Services.Calculations;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,70 +63,68 @@ public class MainController {
     //Actions
     public void onTimePeriodChange() throws Exception {
         int selected = selectTimePeriod.getSelectionModel().getSelectedIndex();
+        LocalDate start, end;
         switch (selected) {
-            case 0:
-                showDataForTimePeriod(selectedDate, selectedDate);
+            case 0://dag
+                start = selectedDate;
+                end = selectedDate;
                 break;
-            case 1:
-
-                    LocalDate startOfWeek = selectedDate.minusDays(7);
-                    LocalDate endOfWeek = selectedDate;
-
-                    showDataForTimePeriod(startOfWeek, endOfWeek);
-                    break;
-            case 2:
-                        int month = selectedDate.getMonthValue();
-                        int year = selectedDate.getYear();
-                        LocalDate startOfMonth = LocalDate.of(year, month, 1);
-                        LocalDate endOfMonth = LocalDate.of(year, month, 31);
-                        showDataForTimePeriod(startOfMonth, endOfMonth);
-                        break;
-            case 3:
-                        int yearMonth = selectedDate.getMonthValue();
-                        LocalDate startOfYear = LocalDate.of(yearMonth, 1, 1);
-                        LocalDate endOfYear = LocalDate.of(yearMonth, 12, 31);
-                        showDataForTimePeriod(startOfYear, endOfYear);
-
-                        break;
+            case 1://uge
+                start = selectedDate.minusDays(selectedDate.getDayOfWeek().getValue() - 1);
+                end = start.plusDays(6);
+                break;
+            case 2://månede
+                start = selectedDate.withDayOfMonth(1);
+                end = start.plusMonths(1).minusDays(1);
+                break;
+            case 3:// år
+                start = selectedDate.withDayOfYear(1);
+                end = start.plusYears(1).minusDays(1);
+                break;
+            default:
+                return;
         }
+        showDataForTimePeriod(start, end);
     }
 
     //
     public void showDataForTimePeriod(LocalDate from, LocalDate to) throws Exception {
-        LocalDateTime dtFrom = from.atStartOfDay();
-        LocalDateTime dtTo = to.atStartOfDay();
-
         MeasurementInterface measurementInterface = new MeasurementsDatabase();
         List<Measurements> list = measurementInterface.readAll();
-        List<Measurements> resultList = new ArrayList<Measurements>();
-        for(Measurements measurement : list) {
-            if (LocalDateTime.parse(measurement.getTimeStamp()).isAfter(dtFrom) && LocalDateTime.parse(measurement.getTimeStamp()).isBefore(dtTo)) {
+        List<Measurements> resultList = new ArrayList<>();
+        for (Measurements measurement : list) {
+            LocalDate measurementDate = LocalDate.parse(measurement.getTimeStamp().substring(0, 10));
+            if (!measurementDate.isBefore(from) && !measurementDate.isAfter(to)) {
                 resultList.add(measurement);
             }
         }
-        int countDays = dtFrom.compareTo(dtTo);
-        List<XYChart.Series> seriesList = new ArrayList<XYChart.Series>();
+        long countDays = ChronoUnit.DAYS.between(from, to) + 1;  // Antal dage
+        List<XYChart.Series<String, Number>> seriesList = new ArrayList<>();
+
         for (int i = 0; i < countDays; i++) {
-            LocalDateTime dtIndex = dtFrom;
-            seriesList.get(i).setName(dtIndex.toString());
+            LocalDate currentDate = from.plusDays(i);
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            series.setName(currentDate.toString());
+
             List<Measurements> measurementsDay = new ArrayList<>();
             for (Measurements m : resultList) {
-                if (m.getTimeStamp().equals(dtIndex.toString())) {
+                LocalDate measurementDate = LocalDate.parse(m.getTimeStamp().substring(0, 10));
+                if (measurementDate.equals(currentDate)) {
                     measurementsDay.add(m);
                 }
             }
-            List<Integer> resultDays = new ArrayList<>();
-            resultDays = Calculations.calculateStatistics(measurementsDay);
+            List<Integer> resultDays = Calculations.calculateStatistics(measurementsDay);
 
-            seriesList.get(i).getData().add(new XYChart.Data<String, Number>("Red", resultDays.get(0)));
-            seriesList.get(i).getData().add(new XYChart.Data<String, Number>("Yellow", resultDays.get(1)));
-            seriesList.get(i).getData().add(new XYChart.Data<String, Number>("Green", resultDays.get(2)));
+            series.getData().add(new XYChart.Data<>("Red", resultDays.get(0)));
+            series.getData().add(new XYChart.Data<>("Yellow", resultDays.get(1)));
+            series.getData().add(new XYChart.Data<>("Green", resultDays.get(2)));
 
-        }
-        for (XYChart.Series series : seriesList) {
-            barChart.getData().addAll(series);
+            seriesList.add(series);
         }
 
+        barChart.getData().clear();
+        barChart.getData().addAll(seriesList);
     }
 
 }
+
