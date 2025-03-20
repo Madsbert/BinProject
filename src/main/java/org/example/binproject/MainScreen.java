@@ -3,10 +3,14 @@ package org.example.binproject;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
+import org.example.binproject.Controllers.MainController;
 import org.example.binproject.Persistance.MeasurementsDatabase;
 import org.example.binproject.Domain.Measurements;
 import org.example.binproject.Persistance.MeasurementsDatabase;
+import org.example.binproject.Services.Calculations;
 import org.example.binproject.Services.CsvConverter;
 
 

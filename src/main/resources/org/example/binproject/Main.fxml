@@ -6,14 +6,14 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="757.0" prefWidth="1297.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.binproject.Controllers.MainController">
     <VBox layoutX="93.0" layoutY="44.0" prefHeight="200.0" prefWidth="100.0" />
-    <BarChart fx:id="barChart" layoutX="-1.0" layoutY="-1.0" prefHeight="676.0" prefWidth="1287.0">
+    <StackedBarChart fx:id="barChart" layoutX="-1.0" layoutY="-1.0" prefHeight="676.0" prefWidth="1287.0">
         <xAxis>
             <CategoryAxis fx:id="axisTimeline" prefHeight="2.0" prefWidth="1251.0" side="BOTTOM" />
         </xAxis>
         <yAxis>
             <NumberAxis fx:id="axisValue" side="LEFT" />
         </yAxis>
-    </BarChart>
+    </StackedBarChart>
     <HBox layoutY="672.0" prefHeight="102.0" prefWidth="1302.0">
         <VBox prefHeight="105.0" prefWidth="190.0">
             <ChoiceBox fx:id="selectTimePeriod" prefHeight="26.0" prefWidth="193.0" />

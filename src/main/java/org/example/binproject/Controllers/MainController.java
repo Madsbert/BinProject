@@ -4,15 +4,14 @@ package org.example.binproject.Controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import org.example.binproject.Domain.Measurements;
 import org.example.binproject.Persistance.MeasurementInterface;
 import org.example.binproject.Persistance.MeasurementsDatabase;
+import org.example.binproject.Services.Calculations;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,7 +27,7 @@ public class MainController {
     @FXML
     private ChoiceBox selectTimePeriod;
     @FXML
-    private BarChart barChart;
+    private StackedBarChart barChart;
     @FXML
     private DatePicker selectDate;
     @FXML
@@ -104,6 +103,29 @@ public class MainController {
                 resultList.add(measurement);
             }
         }
+        int countDays = dtFrom.compareTo(dtTo);
+        List<XYChart.Series> seriesList = new ArrayList<XYChart.Series>();
+        for (int i = 0; i < countDays; i++) {
+            LocalDateTime dtIndex = dtFrom;
+            seriesList.get(i).setName(dtIndex.toString());
+            List<Measurements> measurementsDay = new ArrayList<>();
+            for (Measurements m : resultList) {
+                if (m.getTimeStamp().equals(dtIndex.toString())) {
+                    measurementsDay.add(m);
+                }
+            }
+            List<Integer> resultDays = new ArrayList<>();
+            resultDays = Calculations.calculateStatistics(measurementsDay);
+
+            seriesList.get(i).getData().add(new XYChart.Data<String, Number>("Red", resultDays.get(0)));
+            seriesList.get(i).getData().add(new XYChart.Data<String, Number>("Yellow", resultDays.get(1)));
+            seriesList.get(i).getData().add(new XYChart.Data<String, Number>("Green", resultDays.get(2)));
+
+        }
+        for (XYChart.Series series : seriesList) {
+            barChart.getData().addAll(series);
+        }
+
     }
 
 }
