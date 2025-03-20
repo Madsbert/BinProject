@@ -11,35 +11,28 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="842.0" prefWidth="1304.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.binproject.Controllers.MainController">
-    <children>
-        <VBox layoutX="93.0" layoutY="44.0" prefHeight="200.0" prefWidth="100.0" />
-        <BarChart layoutX="-6.0" layoutY="-1.0" prefHeight="767.0" prefWidth="1309.0">
-            <xAxis>
-                <CategoryAxis prefHeight="2.0" prefWidth="1251.0" side="BOTTOM" />
-            </xAxis>
-            <yAxis>
-                <NumberAxis side="LEFT" />
-            </yAxis>
-        </BarChart>
-        <HBox layoutY="777.0" prefHeight="65.0" prefWidth="1302.0">
-            <children>
-                <VBox prefHeight="59.0" prefWidth="190.0">
-                    <children>
-                        <ChoiceBox prefHeight="26.0" prefWidth="193.0" />
-                        <Separator prefWidth="200.0" />
-                        <DatePicker prefHeight="26.0" prefWidth="193.0" />
-                    </children>
-                </VBox>
-                <VBox prefHeight="60.0" prefWidth="942.0" />
-                <VBox layoutX="137.0" layoutY="10.0" prefHeight="59.0" prefWidth="156.0">
-                    <children>
-                        <ChoiceBox prefHeight="26.0" prefWidth="176.0" />
-                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="152.0" text="Import" />
-                    </children>
-                </VBox>
-            </children>
-        </HBox>
-    </children>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="842.0"
+      prefWidth="1304.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.binproject.Controllers.MainController">
+    <VBox layoutX="93.0" layoutY="44.0" prefHeight="200.0" prefWidth="100.0"/>
+    <BarChart fx:id="barChart" layoutX="-6.0" layoutY="-1.0" prefHeight="767.0" prefWidth="1309.0">
+        <xAxis>
+            <CategoryAxis fx:id="axisTimeline" prefHeight="2.0" prefWidth="1251.0" side="BOTTOM"/>
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="axisValue" side="LEFT"/>
+        </yAxis>
+    </BarChart>
+    <HBox layoutY="777.0" prefHeight="65.0" prefWidth="1302.0">
+        <VBox prefHeight="59.0" prefWidth="190.0">
+            <ChoiceBox fx:id="selectTimePeriod" prefHeight="26.0" prefWidth="193.0"/>
+            <Separator prefWidth="200.0"/>
+            <DatePicker prefHeight="26.0" prefWidth="193.0" fx:id="selectDate"/>
+        </VBox>
+        <VBox prefHeight="60.0" prefWidth="942.0"/>
+        <VBox layoutX="137.0" layoutY="10.0" prefHeight="59.0" prefWidth="156.0">
+            <ChoiceBox fx:id="selectViewedData" prefHeight="26.0" prefWidth="176.0"/>
+            <Button fx:id="btnImport" mnemonicParsing="false" prefHeight="26.0" prefWidth="152.0" text="Import"/>
+        </VBox>
+    </HBox>
 </Pane>
