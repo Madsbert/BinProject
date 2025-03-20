@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * A class to get a csv file into a database
+ */
 public class CsvConverter {
 
 
