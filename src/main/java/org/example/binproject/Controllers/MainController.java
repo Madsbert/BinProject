@@ -13,8 +13,9 @@ import org.example.binproject.Persistance.MeasurementInterface;
 import org.example.binproject.Persistance.MeasurementsDatabase;
 import org.example.binproject.Services.Calculations;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,6 @@ public class MainController {
     private Button btnImport;
 
     private ObservableList<String> timePeriod = FXCollections.observableArrayList();
-    private LocalDate selectedDate = LocalDate.now();
     private ObservableList<String> viewedData = FXCollections.observableArrayList();
 
 
@@ -58,10 +58,23 @@ public class MainController {
             }
         });
 
+        selectDate.setOnAction(actionEvent -> {
+            try {
+                onTimePeriodChange();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
     }
 
     //Actions
     public void onTimePeriodChange() throws Exception {
+        LocalDate selectedDate = selectDate.getValue();
+        if (selectedDate == null) {
+            selectedDate = LocalDate.now();
+        }
+
         int selected = selectTimePeriod.getSelectionModel().getSelectedIndex();
         LocalDate start, end;
         switch (selected) {
@@ -70,7 +83,7 @@ public class MainController {
                 end = selectedDate;
                 break;
             case 1://uge
-                start = selectedDate.minusDays(selectedDate.getDayOfWeek().getValue() - 1);
+                start = selectedDate.with(DayOfWeek.MONDAY);
                 end = start.plusDays(6);
                 break;
             case 2://månede
@@ -87,11 +100,12 @@ public class MainController {
         showDataForTimePeriod(start, end);
     }
 
-    //
+
     public void showDataForTimePeriod(LocalDate from, LocalDate to) throws Exception {
         MeasurementInterface measurementInterface = new MeasurementsDatabase();
         List<Measurements> list = measurementInterface.readAll();
         List<Measurements> resultList = new ArrayList<>();
+
         for (Measurements measurement : list) {
             LocalDate measurementDate = LocalDate.parse(measurement.getTimeStamp().substring(0, 10));
             if (!measurementDate.isBefore(from) && !measurementDate.isAfter(to)) {
@@ -125,6 +139,5 @@ public class MainController {
         barChart.getData().clear();
         barChart.getData().addAll(seriesList);
     }
-
 }
 
