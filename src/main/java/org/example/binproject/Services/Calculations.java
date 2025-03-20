@@ -7,13 +7,13 @@ import java.util.List;
 /**
  * Class to calculate statistics
  */
-public class Calculations {
+public class Calculations implements CalculationsInterface {
 
     /**
      * Method to calculate red, yellow and green lights
      * @param measurements
      */
-    public static List<Integer> calculateStatistics(List<Measurements> measurements) {
+    public List<Integer> calculateStatistics(List<Measurements> measurements) {
         int redCount = 0;
         int yellowCount = 0;
         int greenCount = 0;
